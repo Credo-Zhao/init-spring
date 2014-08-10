@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"
+	default-lazy-init="false">
+
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- 基本事务定义,使用transactionManager作事务管理,默认find*方法的事务为readonly -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 指定哪些方法需要加入事务，可以使用通配符来只加入需要的方法 -->
+			<tx:method name="save*" propagation="REQUIRED" isolation="READ_UNCOMMITTED"
+				timeout="36000" rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED" isolation="READ_UNCOMMITTED"
+				timeout="36000" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="READ_UNCOMMITTED"
+				timeout="36000" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="READ_UNCOMMITTED"
+				timeout="36000" rollback-for="Exception" />
+			<tx:method name="create*" read-only="true" isolation="READ_UNCOMMITTED"
+				timeout="36000" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<!-- 切面事务操作 -->
+		<aop:pointcut id="servicePointcut" expression="execution(* org.credo..*Service.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointcut" />
+	</aop:config>
+
+</beans>
