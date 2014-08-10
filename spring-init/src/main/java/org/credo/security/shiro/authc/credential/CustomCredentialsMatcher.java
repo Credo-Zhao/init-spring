@@ -27,6 +27,4 @@ public class CustomCredentialsMatcher  extends HashedCredentialsMatcher
 		return result;
 	}
 
-
-
 }
