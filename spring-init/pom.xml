@@ -278,6 +278,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-quartz</artifactId>
+			<version>${version-shiro}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
 			<version>${version-shiro}</version>
 		</dependency>
