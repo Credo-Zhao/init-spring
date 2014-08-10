@@ -34,33 +34,33 @@ public class LoginBean
 	
 	@Autowired
 	JpaRealmRepository jpaRealmRepository;
-
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login()
 	{
+		Subject subject=SecurityUtils.getSubject();
+		if(subject.isAuthenticated()){
+			return "redirect:/home";
+		}
 		return "/login";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpServletRequest request)
 	{
+		Subject subject=SecurityUtils.getSubject();
+		if(subject.isAuthenticated()){
+			return "redirect:/home";
+		}
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String loginKaptchaCode = request.getParameter("code");
 
-		Subject subject = SecurityUtils.getSubject();
 		Session shiroSession = subject.getSession();
-		for(Object obj:shiroSession.getAttributeKeys()){
-			log.info(""+obj.toString());
-		}
-		String kaptchaCode = shiroSession.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY).toString();
+		Object kaptchaCode = shiroSession.getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 
-		log.info(username);
-		log.info(password);
-		log.info(loginKaptchaCode);
-		log.info("kaptchaCode:{}", kaptchaCode);
-
-		if (!StringUtils.equalsIgnoreCase(loginKaptchaCode, kaptchaCode))
+		if (kaptchaCode!=null && !StringUtils.equalsIgnoreCase(loginKaptchaCode, kaptchaCode.toString()))
 		{
 			model.addAttribute("message", "验证码错误!");
 			return "/login";

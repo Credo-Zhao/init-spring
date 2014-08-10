@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- 根目录跳转到home页面 -->
-	<mvc:view-controller path="/" view-name="login" />
+	<mvc:view-controller path="/" view-name="redirect:/home" /> 
 	
 	<!-- 开启SpringMVC注解 -->
 	<mvc:annotation-driven />
