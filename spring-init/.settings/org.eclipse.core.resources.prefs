@@ -5,6 +5,7 @@ encoding//src/main/webapp/WEB-INF/template/layout.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/person/form.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/person/list.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/security/user/list.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/unauthorized.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8
