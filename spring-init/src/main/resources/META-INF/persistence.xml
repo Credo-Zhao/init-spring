@@ -12,6 +12,7 @@
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.generate_statistics" value="false" />			
 			
+			<!-- org.hibernate.cache.EhCacheRegionFactory -->
 			<!-- Enable Batching -->
 			<property name="hibernate.jdbc.batch_size" value="20" />
 			<property name="hibernate.default_batch_fetch_size" value="10" />	
