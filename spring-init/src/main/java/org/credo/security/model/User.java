@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,8 +26,6 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.credo.model.base.BaseModel;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Email;
@@ -36,8 +33,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
 public class User extends BaseModel
 {
 	private static final long serialVersionUID = 57212890345839147L;
@@ -78,7 +75,7 @@ public class User extends BaseModel
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles")
-	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+	//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	private Set<Role> roles = new HashSet<Role>();
 
 	@Version

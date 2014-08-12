@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -21,15 +20,13 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 import org.credo.model.base.BaseModel;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "roles", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
+//@Cacheable
+//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
 public class Role extends BaseModel {
 
 	private static final long serialVersionUID = -7695495840123338576L;
@@ -49,7 +46,7 @@ public class Role extends BaseModel {
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "permissions", joinColumns = @JoinColumn(name = "role_id"))
-	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+	//@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 	@Column(name = "permission")
 	private List<String> permissions = new ArrayList<String>();
 
