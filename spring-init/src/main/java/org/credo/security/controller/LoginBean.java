@@ -49,7 +49,7 @@ public class LoginBean
 	public String login(Model model, HttpServletRequest request)
 	{
 		Subject subject=SecurityUtils.getSubject();
-		if(subject.isAuthenticated()){
+		if(subject.isAuthenticated()||subject.isRemembered()){
 			return "redirect:/home";
 		}
 		
