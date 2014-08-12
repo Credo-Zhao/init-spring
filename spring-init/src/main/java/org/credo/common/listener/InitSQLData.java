@@ -15,6 +15,12 @@ import org.credo.security.model.User;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+/**
+ * 初始化SQL数据,数据库不限.登录账户为 zhaoqianjava@foxmail.com 密码123
+ * 
+ * @author Credo
+ * @date: 2014年8月12日
+ */
 public class InitSQLData implements ServletContextListener
 {
 	@Override
@@ -35,16 +41,16 @@ public class InitSQLData implements ServletContextListener
 			personList.add(person);
 		}
 		personRepository.save(personList);
-		
+
 		UserRepository userRepository = webApplicationContext.getBean(UserRepository.class);
 		userRepository.deleteAll();
-		
-		User user=new User();
+
+		User user = new User();
 		user.setName("zhaoqianjava@foxmail.com");
-		byte[] passwordSalt=UUID.randomUUID().toString().getBytes();
+		byte[] passwordSalt = UUID.randomUUID().toString().getBytes();
 		user.setPasswordSalt(passwordSalt);
 		user.setPassword("123");
-		String passwordHash = new Sha512Hash(user.getPassword(), user.getName()+new String(passwordSalt),99).toString();
+		String passwordHash = new Sha512Hash(user.getPassword(), user.getName() + new String(passwordSalt), 99).toString();
 		user.setPasswordHash(passwordHash);
 		userRepository.save(user);
 	}
