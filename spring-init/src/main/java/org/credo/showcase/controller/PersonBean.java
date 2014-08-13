@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/person")
 public class PersonBean
 {
-
 	private static final int DEFAULT_PAGE_NUM = 0;
 	private static final int DEFAULT_PAGE_SIZE = 10;
 
@@ -37,7 +36,6 @@ public class PersonBean
 	@RequestMapping("/list")
 	public String list(@RequestParam(value = "page", required = false) Integer page, Model model)
 	{
-
 		int pageNumber = page != null ? page : DEFAULT_PAGE_NUM;
 		Page<Person> pagingPerson = psersonService.findAllForPagination(pageNumber, DEFAULT_PAGE_SIZE);
 		model.addAttribute("pagingPerson", pagingPerson);

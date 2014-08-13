@@ -17,7 +17,7 @@ body {
 	margin: 0 auto;
 }
 
-.form-signin .form-signin-heading,.form-signin .checkbox {
+.form-signin .form-signin-heading, .form-signin .checkbox {
 	margin-bottom: 10px;
 }
 
@@ -62,24 +62,29 @@ body {
 			<a class="navbar-brand" href="#">Welcome To Credo's Notifier</a>
 		</div>
 	</nav>
+	
 	<div class="container">
+		<c:if test="${message!=null}">
+		<div class="alert alert-danger" role="alert">${message}</div>
+	</c:if>
 		<form class="form-signin" method="post" action="${pageContext.request.contextPath}/login">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<input type="email" name="username" class="form-control" placeholder="Email address" required autofocus> <input
-				type="password" name="password" class="form-control" placeholder="Password" required> <input type="text"
-				name="code" class="form-control" placeholder="Verification code" required style="margin-bottom: 15px;">
+			<input type="email" name="username" class="form-control" placeholder="Email address" required autofocus> <input type="password"
+				name="password" class="form-control" placeholder="Password" required> <input type="text" name="code" class="form-control"
+				placeholder="Verification code" required style="margin-bottom: 15px;">
 
 			<div>
 				<div style="float: left; margin-top: 10px;">
-					<label class="checkbox" style="margin-left: 20px;"> <input type="checkbox" value="remember-me">
-						Remember me
+					<label class="checkbox" style="margin-left: 20px;"> <input type="checkbox" value="remember-me"> Remember me
 					</label>
 				</div>
 				<div style="float: right">
 					<img src="${pageContext.request.contextPath}/Kaptcha.jpg" id="captchaImage" onclick="javascript:refreshImage()" />
 				</div>
 			</div>
+
 			<button class="btn btn-lg btn-primary btn-block" style="margin-top: 90px;" type="submit">Sign in</button>
+
 		</form>
 	</div>
 </body>

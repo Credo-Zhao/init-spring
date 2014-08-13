@@ -77,15 +77,19 @@ public class LoginBean
 			return "redirect:/home";
 		} catch (UnknownAccountException uae)
 		{
+			model.addAttribute("message", "Unknown User!");
 			log.info("Unknown User!");
 		} catch (IncorrectCredentialsException ice)
 		{
+			model.addAttribute("message", "Incorrect Password!");
 			log.info("Incorrect Password!");
 		} catch (LockedAccountException lae)
 		{
+			model.addAttribute("message", "User Locked!");
 			log.info("User Locked!");
 		} catch (AuthenticationException ae)
 		{
+			model.addAttribute("message", "Authentication Failed!");
 			log.info("Authentication Failed!");
 		} 
 		return "/login";
