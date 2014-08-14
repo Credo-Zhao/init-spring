@@ -62,11 +62,11 @@ body {
 			<a class="navbar-brand" href="#">Welcome To Credo's Notifier</a>
 		</div>
 	</nav>
-	
+
 	<div class="container">
 		<c:if test="${message!=null}">
-		<div class="alert alert-danger" role="alert">${message}</div>
-	</c:if>
+			<div class="alert alert-danger" role="alert">${message}</div>
+		</c:if>
 		<form class="form-signin" method="post" action="${pageContext.request.contextPath}/login">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<input type="email" name="username" class="form-control" placeholder="Email address" required autofocus> <input type="password"

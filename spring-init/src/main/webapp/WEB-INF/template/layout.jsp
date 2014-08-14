@@ -23,7 +23,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 					<li><a class="navbar-brand" href="${pageContext.request.contextPath}/person/list/">Person</a></li>
-					<li><a class="navbar-brand" href="${pageContext.request.contextPath}">用户</a></li>
+					<li><a class="navbar-brand" href="${pageContext.request.contextPath}/security/user/list/">用户</a></li>
 					<li><a class="navbar-brand" href="${pageContext.request.contextPath}">权限</a></li>
 			</ul>
 			<shiro:authenticated>

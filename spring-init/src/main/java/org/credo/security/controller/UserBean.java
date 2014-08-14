@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @date: 2014年8月13日
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/security/user")
 public class UserBean
 {
 	private static final Logger log = LoggerFactory.getLogger(UserBean.class);
@@ -39,14 +39,24 @@ public class UserBean
 	public String list(@RequestParam(value = "page", required = false) Integer page, Model model)
 	{
 		int pageNumber = page != null ? page : DEFAULT_PAGE_NUM;
-		Page<User> pagingPerson = userService.findAllForPagination(pageNumber, DEFAULT_PAGE_SIZE);
-		model.addAttribute("pagingPerson", pagingPerson);
-		return "/user/list";
+		Page<User> pageUser = userService.findAllForPagination(pageNumber, DEFAULT_PAGE_SIZE);
+		model.addAttribute("pageUser", pageUser);
+		log.info("{}",pageUser.getSize());
+		for(User u:pageUser){
+			log.info(u.getName());
+			log.info(u.getPasswordHash());
+		}
+		return "/security/user/list";
 	}
 
-	public void create()
+	@RequestMapping("/create")
+	public String create(Model model,User user)
 	{
-
+		log.info("{}",user.getName());
+		log.info("{}",user.getEmail());
+		//userRepository.save(user);
+		model.addAttribute("message", "用户"+user.getName()+"创建成功!");
+		return "redirect:/security/user/list";
 	}
 
 	public void edit()
