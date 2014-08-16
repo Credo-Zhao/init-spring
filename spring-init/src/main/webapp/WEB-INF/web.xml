@@ -13,9 +13,28 @@
 	</listener>
 
 	<!-- 初始化测试数据 -->
-	<listener>
-		<listener-class>org.credo.common.listener.InitSQLData</listener-class>
-	</listener>
+	<!-- <listener> <listener-class>org.credo.common.listener.InitSQLData</listener-class> 
+		</listener> -->
+		
+	<!-- 使用spring Encoding,设置为UTF-8 -->
+	<filter>
+		<filter-name>Set Character Encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Set Character Encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
 
 	<!-- Spring MVC 启动配置 -->
 	<servlet>
@@ -31,7 +50,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- Google Kaptcha 验证码设置 -->
 	<servlet>
 		<servlet-name>Kaptcha</servlet-name>
@@ -73,20 +92,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<!-- 使用spring Encoding,设置为UTF-8 -->
-	<filter>
-		<filter-name>Set Character Encoding</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>Set Character Encoding</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
 	<!-- 阿里巴巴Druid数据源设置 -->
 	<servlet>
 		<servlet-name>DruidStatView</servlet-name>
@@ -97,7 +102,7 @@
 		<url-pattern>/druid/*</url-pattern>
 	</servlet-mapping>
 
-	
+
 
 	<!-- JSP 母版页设置 -->
 	<jsp-config>
