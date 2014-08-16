@@ -8,7 +8,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.shiro.codec.Base64;
 import org.credo.repository.UserRepository;
 import org.credo.security.model.User;
 import org.credo.security.service.UserService;
@@ -45,15 +44,13 @@ public class UserBean
 	@RequestMapping("/list")
 	public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "message", required = false) String 
 			message, Model model)
-			throws UnsupportedEncodingException
 	{
 		int pageNumber = page != null ? page : 0;
 		Page<User> pageUser = userService.findAllForPagination(pageNumber, 10);
 		model.addAttribute("pageUser", pageUser);
 		if (message!=null)
 		{
-			log.info(Base64.decodeToString(message));
-			model.addAttribute("message", Base64.decodeToString(message));
+			model.addAttribute("message", message);
 		}
 		return "/security/user/list";
 	}
@@ -64,8 +61,8 @@ public class UserBean
 		user = PasswordHelper.generatePassword(user);
 		userRepository.save(user);
 		Map<String,String> map = new HashMap<>();
-		String str = "用户" + user.getName() + "创建成功!";
-		map.put("message", Base64.encodeToString(str.getBytes()));
+		String message = "用户 " + user.getName() + " 创建成功!";
+		map.put("message", message);
 		return new ModelAndView(new RedirectView("list"), map);
 	}
 
