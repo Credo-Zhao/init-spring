@@ -22,8 +22,8 @@
 					<td>${user.email}</td>
 					<td>${user.mobile}</td>
 					<td>${user.lastLogin}</td>
-					<td><a href='${pageContext.request.contextPath}/user/edit/${user.id}'>edit</a>&nbsp;&nbsp; <a
-						href='${pageContext.request.contextPath}/user/delete/${user.id}'>delete</a></td>
+					<td><a href='${pageContext.request.contextPath}/security/user/edit/${user.id}'>edit</a>&nbsp;&nbsp; <a
+						href='${pageContext.request.contextPath}/security/user/delete/${user.id}'>delete</a></td>
 				<tr>
 			</c:forEach>
 		</table>
@@ -40,7 +40,9 @@
 							<button type="button" class="close" data-dismiss="modal">
 								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">创建新用户</h4>
+							<h4 class="modal-title" id="myModalLabel">
+								<b>创建新用户</b>
+							</h4>
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
@@ -53,15 +55,18 @@
 								<input class="form-control" type="text" name="employeeId" placeholder="员工ID" required>
 							</div>
 							<div class="form-group">
+								<input class="form-control" type="text" name="realName" placeholder="真实姓名" required>
+							</div>
+							<div class="form-group">
 								<input class="form-control" type="email" name="email" placeholder="Email" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="number" min="10000000000" max="19999999999" name="phone" placeholder="手机" required>
+								<input class="form-control" type="number" name="mobile" placeholder="手机" required>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Save changes</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="submit" class="btn btn-primary">确定新增用户</button>
 						</div>
 					</div>
 				</form>

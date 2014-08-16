@@ -4,17 +4,27 @@
  */
 package org.credo.security.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.shiro.codec.Base64;
 import org.credo.repository.UserRepository;
 import org.credo.security.model.User;
 import org.credo.security.service.UserService;
+import org.credo.security.shiro.authc.PasswordHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * @author ZhaoQian
@@ -26,9 +36,6 @@ public class UserBean
 {
 	private static final Logger log = LoggerFactory.getLogger(UserBean.class);
 
-	private static final int DEFAULT_PAGE_NUM = 0;
-	private static final int DEFAULT_PAGE_SIZE = 10;
-
 	@Autowired
 	UserRepository userRepository;
 
@@ -36,37 +43,43 @@ public class UserBean
 	UserService userService;
 
 	@RequestMapping("/list")
-	public String list(@RequestParam(value = "page", required = false) Integer page, Model model)
+	public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "message", required = false) String 
+			message, Model model)
+			throws UnsupportedEncodingException
 	{
-		int pageNumber = page != null ? page : DEFAULT_PAGE_NUM;
-		Page<User> pageUser = userService.findAllForPagination(pageNumber, DEFAULT_PAGE_SIZE);
+		int pageNumber = page != null ? page : 0;
+		Page<User> pageUser = userService.findAllForPagination(pageNumber, 10);
 		model.addAttribute("pageUser", pageUser);
-		log.info("{}",pageUser.getSize());
-		for(User u:pageUser){
-			log.info(u.getName());
-			log.info(u.getPasswordHash());
+		if (message!=null)
+		{
+			log.info(Base64.decodeToString(message));
+			model.addAttribute("message", Base64.decodeToString(message));
 		}
 		return "/security/user/list";
 	}
 
 	@RequestMapping("/create")
-	public String create(Model model,User user)
+	public ModelAndView create(User user) throws UnsupportedEncodingException
 	{
-		log.info("{}",user.getName());
-		log.info("{}",user.getEmail());
-		//userRepository.save(user);
-		model.addAttribute("message", "用户"+user.getName()+"创建成功!");
-		return "redirect:/security/user/list";
+		user = PasswordHelper.generatePassword(user);
+		userRepository.save(user);
+		Map<String,String> map = new HashMap<>();
+		String str = "用户" + user.getName() + "创建成功!";
+		map.put("message", Base64.encodeToString(str.getBytes()));
+		return new ModelAndView(new RedirectView("list"), map);
 	}
 
-	public void edit()
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public void edit(@PathVariable("id") String id, Model model)
 	{
-
+		User user = this.userRepository.findOne(Long.parseLong(id));
+		model.addAttribute(user);
 	}
 
-	public void delete()
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public void delete(@PathVariable("id") String id, Model model)
 	{
-
+		log.info("delete successful!");
 	}
 
 }

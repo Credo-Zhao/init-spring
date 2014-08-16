@@ -69,7 +69,7 @@ body {
 		</c:if>
 		<form class="form-signin" method="post" action="${pageContext.request.contextPath}/login">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<input type="email" name="username" class="form-control" placeholder="Email address" required autofocus> <input type="password"
+			<input  name="username" class="form-control" placeholder="Login UserName" required autofocus> <input type="password"
 				name="password" class="form-control" placeholder="Password" required> <input type="text" name="code" class="form-control"
 				placeholder="Verification code" required style="margin-bottom: 15px;">
 
