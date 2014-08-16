@@ -13,9 +13,10 @@
 	</listener>
 
 	<!-- 初始化测试数据 -->
-	<!-- <listener> <listener-class>org.credo.common.listener.InitSQLData</listener-class> 
-		</listener> -->
-		
+	<listener>
+		<listener-class>org.credo.common.listener.InitSQLData</listener-class>
+	</listener>
+
 	<!-- 使用spring Encoding,设置为UTF-8 -->
 	<filter>
 		<filter-name>Set Character Encoding</filter-name>
@@ -33,7 +34,7 @@
 		<filter-name>Set Character Encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
 	<!-- Spring MVC 启动配置 -->
