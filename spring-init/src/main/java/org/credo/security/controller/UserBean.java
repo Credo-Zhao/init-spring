@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.credo.repository.UserRepository;
 import org.credo.security.model.User;
 import org.credo.security.service.UserService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -66,11 +69,24 @@ public class UserBean
 		return new ModelAndView(new RedirectView("list"), map);
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public void edit(@PathVariable("id") String id, Model model)
 	{
+		log.info("edit user!");
 		User user = this.userRepository.findOne(Long.parseLong(id));
 		model.addAttribute(user);
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public ModelAndView edit(@Valid User user)
+	{
+		log.info("edit user!");
+		this.userRepository.save(user);
+		Map<String,String> map = new HashMap<>();
+		String message = "用户 " + user.getName() + " 编辑成功!";
+		map.put("message", message);
+		return new ModelAndView(new RedirectView("list"), map);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
