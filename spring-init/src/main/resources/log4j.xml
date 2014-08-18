@@ -50,20 +50,20 @@
 
     <!-- for hibernate3 -->
     <logger name="org.hibernate.transaction">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <!-- for hibernate4 -->
     <logger name="org.hibernate.engine.transaction">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="org.hibernate.tool">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
     <logger name="jdbc.sqltiming">
-        <level value="debug" />
+        <level value="warn" />
     </logger>
 
 <!--     <logger name="jdbc.sqlonly"> -->

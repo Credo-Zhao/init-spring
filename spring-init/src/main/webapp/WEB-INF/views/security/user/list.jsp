@@ -80,9 +80,19 @@
 				$.ajax({
 					url : path,
 					type : 'get',
-					async : true
+					async : true,
+					dataType: "json",
+					success: function(user){
+						alert(user.employeeId);
+                        $('#name').empty();   //清空resText里面的所有内容
+                        $('#employeeId').empty();
+                        $('#name').val(user.name);
+                        $('#employeeId').val(user.employeeId);
+                        $('#realName').val(user.realName);
+                        $('#email').val(user.email);
+                        $('#mobile').val(user.mobile);
+                     }
 				});
-				$("#editModal").load();
 			}
 		</script>
 
@@ -101,22 +111,22 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<input class="form-control" type="text" name="name" placeholder="用户账户" required>
+								<input class="form-control" id="name" type="text" name="name" placeholder="用户账户" required>
 							</div>
 							<div class="form-group">
 								<input class="form-control" type="password" name="password" placeholder="密码" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="employeeId" placeholder="员工ID" required>
+								<input class="form-control" id="employeeId" type="text" name="employeeId" placeholder="员工ID" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="realName" placeholder="真实姓名" required>
+								<input class="form-control" id="realName" type="text" name="realName" placeholder="真实姓名" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="email" name="email" placeholder="Email" required>
+								<input class="form-control" id="email" type="email" name="email" placeholder="Email" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="number" name="mobile" placeholder="手机" required>
+								<input class="form-control" id="mobile" type="number" name="mobile" placeholder="手机" required>
 							</div>
 						</div>
 						<div class="modal-footer">

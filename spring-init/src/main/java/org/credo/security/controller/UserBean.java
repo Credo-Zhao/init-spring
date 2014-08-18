@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * @author ZhaoQian
  * @date: 2014年8月13日
@@ -69,13 +71,15 @@ public class UserBean
 		return new ModelAndView(new RedirectView("list"), map);
 	}
 
-	@ResponseBody
+	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public void edit(@PathVariable("id") String id, Model model)
+	@ResponseBody
+	public String edit(@PathVariable("id") String id)
 	{
-		log.info("edit user!");
 		User user = this.userRepository.findOne(Long.parseLong(id));
-		model.addAttribute(user);
+		String json=JSON.toJSONString(user);
+		log.info("{}",json);
+		return json;
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
