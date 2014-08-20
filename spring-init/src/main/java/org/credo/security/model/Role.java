@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.Size;
 
 import org.credo.model.base.BaseModel;
 import org.hibernate.annotations.NaturalId;
@@ -38,6 +39,7 @@ public class Role extends BaseModel {
 	@NaturalId
 	@NotEmpty
 	@Column(name = "NAME")
+	@Size(min=3)
 	private String name;
 
 	@Basic(optional = true)
