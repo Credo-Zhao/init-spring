@@ -5,6 +5,7 @@ encoding//src/main/webapp/WEB-INF/template/layout.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/login.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/person/form.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/person/list.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/security/role/Copy\ of\ form.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/security/role/form.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/security/role/list.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/security/user/list.jsp=UTF-8

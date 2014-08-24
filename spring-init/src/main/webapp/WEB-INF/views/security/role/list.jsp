@@ -2,7 +2,7 @@
 	<c:param name="title" value="角色列表" />
 	<c:param name="body">
 		<p>
-			<a href='${pageContext.request.contextPath}/role/form' class="btn btn-info">CREATE</a>
+			<a href='${pageContext.request.contextPath}/security/role/form' class="btn btn-info">CREATE</a>
 		</p>
 		<table class="table table-hover table-condensed table-bordered" style="margin-bottom: 0px;">
 			<tr>

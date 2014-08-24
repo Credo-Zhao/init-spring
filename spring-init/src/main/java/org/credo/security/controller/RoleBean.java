@@ -4,12 +4,16 @@
  */
 package org.credo.security.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 import org.credo.repository.RoleRepository;
 import org.credo.security.model.Role;
+import org.credo.security.model.enums.Permission;
 import org.credo.security.service.RoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +36,7 @@ public class RoleBean
 
 	@Autowired
 	RoleRepository roleRepository;
-	
+
 	@Autowired
 	RoleService roleService;
 
@@ -41,23 +45,46 @@ public class RoleBean
 	{
 		List<Role> roleList = roleRepository.findAll();
 		model.addAttribute("roleList", roleList);
-		List<String> permissionList=roleService.queryAllPermissions();
+		List<String> permissionList = roleService.queryAllPermissions();
 		model.addAttribute("permissionList", permissionList);
 		return "/security/role/list";
 	}
 
+	// @ModelAttribute
+	// @RequestMapping(value = "/form", method = RequestMethod.GET)
+	// public String initCreate(Model model)
+	// {
+	// Role role = new Role();
+	// model.addAttribute("role",role);
+	// return "/security/role/list";
+	// }
+
 	@ModelAttribute
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public Role initCreate()
+	public String initCreate(Model model)
 	{
-		Role role = new Role();
-		return role;
+		List<Permission> permissions = new ArrayList<Permission>();
+		for (Permission permission : Permission.values())
+		{
+			permissions.add(permission);
+		}
+		Collections.sort(permissions);
+		model.addAttribute("permissions", permissions);
+		return "/security/role/list";
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String submitCreate(@Valid Role role, Model model)
+	public String submitCreate(Model model, HttpServletRequest request)
 	{
+		String name = request.getParameter("roleName");
+		String desc = request.getParameter("roleDesc");
+		String permissionStr = request.getParameter("permissionStr");
+		Role role=new Role();
+		role.setName(name);
+		role.setDescription(desc);
+		String[] permissionArray= permissionStr.split(",");
+		role.setPermissions(Arrays.asList(permissionArray));
 		roleRepository.save(role);
-		return "redirect:/role/list";
+		return "redirect:/security/role/list";
 	}
 }

@@ -38,7 +38,7 @@
 
 	<nav class="navbar-default navbar-fixed-bottom" role="navigation">
 		<div style="height: 17px; font-size: 9px;" align="center">
-			<strong>Copyright &nbsp;&copy;&nbsp; 2013 &nbsp;&bull;&nbsp; TaiYuan Credo Software Co., Ltd. &nbsp;All
+			<strong>Copyright &nbsp;&copy;&nbsp; 2014 &nbsp;&bull;&nbsp; TaiYuan Credo Software Co., Ltd. &nbsp;All
 				rights reserved.</strong>
 		</div>
 	</nav>
