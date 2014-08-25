@@ -34,35 +34,15 @@
 						</c:forEach>
 					</div>
 				</div>
-
-				<input type="text" name="permissionStr" hidden="true" /> 
-				<input type="submit" value="TEST" onclick="generatePermissionString();" />
-		</form>
-		<%-- <form:form action="." method="post" modelAttribute="person" cssClass="form-horizontal">
-				<div class="form-group">
-					<label for="name" class="col-sm-2 control-label">姓名</label>
-					<div class="col-sm-10">
-						<form:input path="name" cssClass="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="age" class="col-sm-2 control-label">年龄</label>
-					<div class="col-sm-10">
-						<form:input path="age" cssClass="form-control" />
-					</div>
-				</div>
-				<form:hidden path="id" />
+				<input type="text" name="permissionStr" hidden="true" />
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-default">提交</button>
-						&nbsp;
-						<button type="reset" class="btn">重置</button>
-						&nbsp; <a href='${pageContext.request.contextPath}/person/list' class="btn">返回</a>
+						<input type="submit" value="提交" onclick="generatePermissionString();" class="btn btn-primary" />
+						<input type="reset" value="重置" class="btn btn-default" />
 					</div>
 				</div>
-			</form:form> --%>
-		</div>
-
+			</div>
+		</form>
 	</c:param>
 </c:import>
 
