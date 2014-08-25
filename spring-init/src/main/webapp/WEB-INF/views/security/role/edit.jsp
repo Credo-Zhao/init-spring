@@ -3,13 +3,22 @@
 	<c:param name="body">
 
 		<script type="text/javascript">
-			$(document).ready(function() {
-				var chk_value = "${role.viewPermissions}".split(",");
-				for ( var e in chk_value) {
-					alert(chk_value[e]);
-					$('input[name="permission"]:checkbox"').attr("checked",true);
-				}
-			});
+			$(document).ready(
+					function() {
+						var chk_value = "${role.viewPermissions}".split(",");
+						for ( var e in chk_value) {
+							alert(chk_value[e]);
+							/* $('input:checkbox[value="role:*"]').attr('checked', true);
+							$('input:checkbox[value="user:*"]').attr('checked', true); */
+							$('input:checkbox[value="'+chk_value[e]+'"]')
+									.attr('checked', true); 
+						}
+						/* $('input:checkbox').each(function() {
+
+						     $(this).attr('checked', true);
+
+						    }); */
+					});
 
 			function generatePermissionString() {
 				var chk_value = [];
