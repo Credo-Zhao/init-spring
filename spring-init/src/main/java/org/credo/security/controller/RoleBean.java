@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,15 +51,6 @@ public class RoleBean
 		return "/security/role/list";
 	}
 
-	// @ModelAttribute
-	// @RequestMapping(value = "/form", method = RequestMethod.GET)
-	// public String initCreate(Model model)
-	// {
-	// Role role = new Role();
-	// model.addAttribute("role",role);
-	// return "/security/role/list";
-	// }
-
 	@ModelAttribute
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
 	public String initCreate(Model model)
@@ -85,6 +77,25 @@ public class RoleBean
 		String[] permissionArray= permissionStr.split(",");
 		role.setPermissions(Arrays.asList(permissionArray));
 		roleRepository.save(role);
+		return "redirect:/security/role/list";
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public String initEdit(@PathVariable("id") String id, Model model){
+		Role role = roleRepository.findOne(Long.parseLong(id));
+		model.addAttribute("role",role);
+		List<Permission> permissions = new ArrayList<Permission>();
+		for (Permission permission : Permission.values())
+		{
+			permissions.add(permission);
+		}
+		Collections.sort(permissions);
+		model.addAttribute("permissions", permissions);
+		return "/security/role/edit";
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String submitEdit(){
 		return "redirect:/security/role/list";
 	}
 }
