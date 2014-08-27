@@ -107,13 +107,9 @@ public class RoleBean
 		role.setName(name);
 		role.setDescription(desc);
 		String[] permissionArray= permissionStr.split(",");
+		List<String> list=Arrays.asList(permissionArray);
 		
-		List<String> list=new ArrayList<String>();
-		for(String str:permissionArray){
-			list.add(str);
-		}
-		
-		role.setPermissions(list);
+		role.setPermissions(new ArrayList<>(list));
 		this.roleRepository.save(role);
 		return "redirect:/security/role/list";
 	}
