@@ -52,6 +52,21 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+		<init-param>
+			<!-- 指定org.springframework.orm.jpa.LocalEntityManagerFactoryBean在spring配置文件中的名称,默认值为entityManagerFactory 
+				如果LocalEntityManagerFactoryBean在spring中的名称不是entityManagerFactory,该参数一定要指定,否则会出现找不到entityManagerFactory的例外 -->
+			<param-name>entityManagerFactoryBeanName</param-name>
+			<param-value>entityManagerFactory</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Spring OpenEntityManagerInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- Google Kaptcha 验证码设置 -->
 	<servlet>
 		<servlet-name>Kaptcha</servlet-name>

@@ -6,18 +6,15 @@
 			$(document).ready(
 					function() {
 						var chk_value = "${role.viewPermissions}".split(",");
-						for ( var e in chk_value) {
-							alert(chk_value[e]);
-							/* $('input:checkbox[value="role:*"]').attr('checked', true);
-							$('input:checkbox[value="user:*"]').attr('checked', true); */
-							$('input:checkbox[value="'+chk_value[e]+'"]')
-									.attr('checked', true); 
-						}
-						/* $('input:checkbox').each(function() {
-
-						     $(this).attr('checked', true);
-
-						    }); */
+						/* for ( var e in chk_value) {
+							 $('input:checkbox[value= "'+$.trim(chk_value[e])+'"]').attr('checked', true); 
+							
+						} */
+						$.each(chk_value, function(key, val) {
+						    // firebug console
+						    console.log('index in arr:' + key + ", corresponding value:"+val);
+						    $('input:checkbox[value= "'+$.trim(val)+'"]').attr('checked', true); 
+						});
 					});
 
 			function generatePermissionString() {
@@ -45,13 +42,14 @@
 				<div class="form-group">
 					<label for="roleDesc" class="col-sm-2 control-label">角色权限</label>
 					<div class="col-sm-10">
-						<c:forEach items="${permissions}" var="permission">
+						 <c:forEach items="${permissions}" var="permission">
 							<label><input type="checkbox" name="permission" value="${permission.abbreviation}">${permission.description}</label>
 							<br />
 						</c:forEach>
 					</div>
 				</div>
 				<input type="text" name="permissionStr" hidden="true" />
+				<input type="text" name="id" hidden="true" value="${role.id}"/>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="submit" value="提交" onclick="generatePermissionString();" class="btn btn-primary" /> <input type="reset" value="重置"

@@ -9,9 +9,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.credo.repository.RoleRepository;
+import org.credo.security.model.Role;
 import org.credo.security.model.enums.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Credo
@@ -30,5 +32,14 @@ public class RoleService
 			permissions.add(permission.getAbbreviation());
 		Collections.sort(permissions);
 		return permissions;
+	}
+	
+	@Transactional
+	public void update(Role role){
+		Role roleTemp=this.roleRepository.getOne(role.getId());
+		roleTemp.setDescription(role.getDescription());
+		roleTemp.setName(role.getName());
+		roleTemp.setPermissions(role.getPermissions());
+		this.roleRepository.saveAndFlush(roleTemp);
 	}
 }

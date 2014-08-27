@@ -37,8 +37,8 @@
 				<input type="text" name="permissionStr" hidden="true" />
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<input type="submit" value="提交" onclick="generatePermissionString();" class="btn btn-primary" />
-						<input type="reset" value="重置" class="btn btn-default" />
+						<input type="submit" value="提交" onclick="generatePermissionString();" class="btn btn-primary" /> <input type="reset" value="重置"
+							class="btn btn-default" />
 					</div>
 				</div>
 			</div>

@@ -95,7 +95,26 @@ public class RoleBean
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String submitEdit(){
+	public String submitEdit(Model model, HttpServletRequest request){
+		
+		String id=request.getParameter("id");
+		String name = request.getParameter("roleName");
+		String desc = request.getParameter("roleDesc");
+		String permissionStr = request.getParameter("permissionStr");
+		
+		Role role=this.roleRepository.findOne(Long.parseLong(id));
+		
+		role.setName(name);
+		role.setDescription(desc);
+		String[] permissionArray= permissionStr.split(",");
+		
+		List<String> list=new ArrayList<String>();
+		for(String str:permissionArray){
+			list.add(str);
+		}
+		
+		role.setPermissions(list);
+		this.roleRepository.save(role);
 		return "redirect:/security/role/list";
 	}
 }

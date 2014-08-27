@@ -118,7 +118,7 @@ public class Role extends BaseModel {
 		{
 			sb.append(it.next());
 			if ( it.hasNext() )
-				sb.append(", ");
+				sb.append(",");
 		}
 
 		return sb.toString();
