@@ -12,7 +12,7 @@
     </appender>
 
     <!-- Application Loggers -->
-    <logger name="org.credo">
+    <logger name="org.zhaoqian">
         <level value="debug" />
     </logger>
 

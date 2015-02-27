@@ -14,7 +14,7 @@
 
 	<!-- 初始化测试数据 -->
 	<listener>
-		<listener-class>org.credo.common.listener.InitSQLData</listener-class>
+		<listener-class>org.zhaoqian.common.listener.InitSQLData</listener-class>
 	</listener>
 
 	<!-- 使用spring Encoding,设置为UTF-8 -->

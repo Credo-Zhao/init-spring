@@ -27,6 +27,6 @@
 	<!-- 根目录跳转到home页面 -->
 	<mvc:view-controller path="/" view-name="login" />
 	<!-- Imports user-defined @Controller beans that process client requests -->
-	<context:component-scan base-package="org.credo" />
+	<context:component-scan base-package="org.zhaoqian" />
 
 </beans:beans>

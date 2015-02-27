@@ -39,7 +39,7 @@
 
 	<aop:config>
 		<!-- 切面事务操作 -->
-		<aop:pointcut id="servicePointcut" expression="execution(* org.credo..*Service.*(..))" />
+		<aop:pointcut id="servicePointcut" expression="execution(* org.zhaoqian..*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="servicePointcut" />
 	</aop:config>
 

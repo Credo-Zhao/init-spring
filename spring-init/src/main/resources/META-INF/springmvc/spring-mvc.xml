@@ -16,7 +16,7 @@
 	<mvc:annotation-driven />
 
 	<!-- 只扫描Controller 注解 -->
-	<context:component-scan base-package="org.credo" use-default-filters="false">
+	<context:component-scan base-package="org.zhaoqian" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>

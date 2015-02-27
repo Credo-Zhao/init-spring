@@ -11,7 +11,7 @@
 	</bean>
 
 	<!-- 凭证匹配器 -->
-	<bean id="credentialsMatcher" class="org.credo.security.shiro.authc.credential.CustomCredentialsMatcher">
+	<bean id="credentialsMatcher" class="org.zhaoqian.security.shiro.authc.credential.CustomCredentialsMatcher">
 		<!-- 散列算法的名字 -->
 		<property name="hashAlgorithmName" value="SHA-512" />
 		<property name="hashIterations" value="99" />
@@ -20,7 +20,7 @@
 	</bean>
 
 	<!-- Realm实现 -->
-	<bean id="jpaRealm" class="org.credo.security.shiro.realm.JpaRealm">
+	<bean id="jpaRealm" class="org.zhaoqian.security.shiro.realm.JpaRealm">
 		<property name="cachingEnabled" value="true" />
 		<property name="authenticationCachingEnabled" value="true" />
 		<property name="authenticationCacheName" value="authenticationCache" />
