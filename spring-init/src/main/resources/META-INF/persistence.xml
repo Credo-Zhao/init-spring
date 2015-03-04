@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
+		<!--ENABLE_SELECTIVE[(默认和推荐值):实体不缓存,除非明确标记为可缓存的。] DISABLE_SELECTIVE[实体缓存,除非明确标记为不缓存] NONE[无缓存] ALL[全部缓存]-->
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<properties>
 			<property name="hibernate.use_sql_comments" value="true" />
 			<property name="hibernate.connection.charSet" value="UTF-8" />
-			
+
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.generate_statistics" value="false" />			
-			
+			<property name="hibernate.generate_statistics" value="false" />
+
 			<!-- org.hibernate.cache.EhCacheRegionFactory -->
 			<!-- Enable Batching -->
 			<property name="hibernate.jdbc.batch_size" value="20" />
-			<property name="hibernate.default_batch_fetch_size" value="10" />	
-			
+			<property name="hibernate.default_batch_fetch_size" value="10" />
+
 			<!-- Hibernate二级缓存相关配置 -->
 			<!-- 开启二级缓存 -->
-			<!-- <property name="hibernate.cache.use_second_level_cache" value="true" /> -->
+			<property name="hibernate.cache.use_second_level_cache" value="true" />
 			<!-- 打开Hibernate查询缓存 -->
-			<!-- <property name="hibernate.cache.use_query_cache" value="true" />	 -->	
+			<property name="hibernate.cache.use_query_cache" value="true" />
 			<!-- 配置缓存提供者 -->
-			<!-- <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" /> -->			
+			<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" />
+			<property name="hibernate.generate_statistics" value="true" />
 			
 		</properties>
 	</persistence-unit>

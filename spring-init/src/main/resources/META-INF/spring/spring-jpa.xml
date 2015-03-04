@@ -10,20 +10,26 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- 指定事务管理器，JPA使用JpaTransactionManager事务管理器实现. -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+	<!-- 指定JPA实现 -->
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="showSql" value="false" />
 		<property name="database" value="${database}" />
 	</bean>
 
+	<!-- 适用于所有环境的FactoryBean，能全面控制EntityManagerFactory配置,如指定Spring定义的DataSource等等. -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!-- 指定持久化单元名字，即JPA配置文件中指定的 -->
 		<property name="persistenceUnitName" value="persistenceUnit" />
+		<!-- 见上 -->
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<!-- 见上 -->
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
