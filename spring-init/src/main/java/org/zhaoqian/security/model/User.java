@@ -25,7 +25,6 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.annotations.Index;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -46,6 +45,7 @@ public class User extends BaseModel
 	@NaturalId
 	@NotEmpty
 	@Column(name = "NAME")
+	@Email
 	private String name;
 
 	@Basic(optional = false)
@@ -58,11 +58,6 @@ public class User extends BaseModel
 	private String employeeId;
 
 	private String realName;
-
-	@Basic(optional = true)
-	@Email
-	@Index(name = "idx_user_email")
-	private String email;
 
 	@Basic(optional = true)
 	private String mobile;
@@ -183,16 +178,6 @@ public class User extends BaseModel
 	public void setRealName(String realName)
 	{
 		this.realName = realName;
-	}
-
-	public String getEmail()
-	{
-		return email;
-	}
-
-	public void setEmail(String email)
-	{
-		this.email = email;
 	}
 
 	public String getMobile()
