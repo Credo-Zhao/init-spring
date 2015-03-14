@@ -38,19 +38,24 @@ public class JpaRealm extends AuthorizingRealm implements Serializable
 	JpaRealmRepository jpaRealmRepository;
 
 	/*
-	 *授权信息处理
+	 * 授权信息处理
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals)
 	{
 		String username = principals.getPrimaryPrincipal().toString();
 		User user = this.jpaRealmRepository.findUserByName(username);
-		
-		SimpleAuthorizationInfo authorization=new SimpleAuthorizationInfo();
-		for(Role role:user.getRoles()){
-			authorization.addStringPermissions(role.getPermissions());
+
+		if (null != user)
+		{
+			SimpleAuthorizationInfo authorization = new SimpleAuthorizationInfo();
+			for (Role role : user.getRoles())
+			{
+				authorization.addStringPermissions(role.getPermissions());
+			}
+			return authorization;
 		}
-		
+
 		return null;
 	}
 
@@ -71,39 +76,45 @@ public class JpaRealm extends AuthorizingRealm implements Serializable
 
 		String principal = username;
 		String hashedCredentials = user.getPasswordHash();
-		ByteSource credentialsSalt = ByteSource.Util.bytes(user.getName()+new String(user.getPasswordSalt()));
+		ByteSource credentialsSalt = ByteSource.Util.bytes(user.getName() + new String(user.getPasswordSalt()));
 		String realmName = getName();
-		
-		SimpleAuthenticationInfo authentication = new SimpleAuthenticationInfo(principal, hashedCredentials,credentialsSalt, realmName);
+
+		SimpleAuthenticationInfo authentication = new SimpleAuthenticationInfo(principal, hashedCredentials, credentialsSalt, realmName);
 		return authentication;
 	}
-	
+
 	@Override
-    public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
-        super.clearCachedAuthorizationInfo(principals);
-    }
+	public void clearCachedAuthorizationInfo(PrincipalCollection principals)
+	{
+		super.clearCachedAuthorizationInfo(principals);
+	}
 
-    @Override
-    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
-        super.clearCachedAuthenticationInfo(principals);
-    }
+	@Override
+	public void clearCachedAuthenticationInfo(PrincipalCollection principals)
+	{
+		super.clearCachedAuthenticationInfo(principals);
+	}
 
-    @Override
-    public void clearCache(PrincipalCollection principals) {
-        super.clearCache(principals);
-    }
+	@Override
+	public void clearCache(PrincipalCollection principals)
+	{
+		super.clearCache(principals);
+	}
 
-    public void clearAllCachedAuthorizationInfo() {
-        getAuthorizationCache().clear();
-    }
+	public void clearAllCachedAuthorizationInfo()
+	{
+		getAuthorizationCache().clear();
+	}
 
-    public void clearAllCachedAuthenticationInfo() {
-        getAuthenticationCache().clear();
-    }
+	public void clearAllCachedAuthenticationInfo()
+	{
+		getAuthenticationCache().clear();
+	}
 
-    public void clearAllCache() {
-        clearAllCachedAuthenticationInfo();
-        clearAllCachedAuthorizationInfo();
-    }
+	public void clearAllCache()
+	{
+		clearAllCachedAuthenticationInfo();
+		clearAllCachedAuthorizationInfo();
+	}
 
 }
