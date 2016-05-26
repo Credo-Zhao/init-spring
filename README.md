@@ -67,5 +67,3 @@ Spring各个XML配置简单化.技术基本选择最新.<br />
 </li>
 </ul>
 作者:赵谦<br />
-QQ: 251006963<br />
-Email: zhaoqianjava@foxmail.com
