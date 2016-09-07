@@ -16,8 +16,8 @@
 					<td>${role.name}</td>
 					<td>${role.description}</td>
 					<td>${role.viewPermissions}</td>
-					<td><a href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; <a
-						href='${pageContext.request.contextPath}/person/role/${role.id}'>delete</a></td>
+					<td><a href='${pageContext.request.contextPath}/security/role/edit/${role.id}'>edit</a>&nbsp;&nbsp; <%-- <a
+						href='${pageContext.request.contextPath}/person/role/${role.id}'>delete</a></td> --%>
 				<tr>
 			</c:forEach>
 		</table>

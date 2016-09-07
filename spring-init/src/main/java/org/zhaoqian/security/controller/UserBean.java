@@ -1,5 +1,8 @@
 /**
- * <p>Copyright (c) 2014 ZhaoQian.All Rights Reserved.</p>
+ * <p>
+ * Copyright (c) 2014 ZhaoQian.All Rights Reserved.
+ * </p>
+ * 
  * @author <a href="zhaoqianjava@foxmail.com">ZhaoQian</a>
  */
 package org.zhaoqian.security.controller;
@@ -36,67 +39,72 @@ import com.alibaba.fastjson.JSON;
  */
 @Controller
 @RequestMapping("/security/user")
-public class UserBean
-{
-	private static final Logger log = LoggerFactory.getLogger(UserBean.class);
+public class UserBean {
+    private static final Logger log = LoggerFactory.getLogger(UserBean.class);
 
-	@Autowired
-	UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@RequestMapping("/list")
-	public String list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "message", required = false) String 
-			message, Model model)
-	{
-		int pageNumber = page != null ? page : 0;
-		Page<User> pageUser = userService.findAllForPagination(pageNumber, 10);
-		model.addAttribute("pageUser", pageUser);
-		if (message!=null)
-		{
-			model.addAttribute("message", message);
-		}
-		return "/security/user/list";
-	}
+    @RequestMapping("/list")
+    public String list(@RequestParam(value = "page", required = false) Integer page,
+            @RequestParam(value = "message", required = false) String message, Model model) {
+        int pageNumber = page != null ? page : 0;
+        Page<User> pageUser = userService.findAllForPagination(pageNumber, 10);
+        model.addAttribute("pageUser", pageUser);
+        if (message != null) {
+            model.addAttribute("message", message);
+        }
+        return "/security/user/list";
+    }
 
-	@RequestMapping("/create")
-	public ModelAndView create(User user) throws UnsupportedEncodingException
-	{
-		user = PasswordHelper.generatePassword(user);
-		userRepository.save(user);
-		Map<String,String> map = new HashMap<>();
-		String message = "用户 " + user.getName() + " 创建成功!";
-		map.put("message", message);
-		return new ModelAndView(new RedirectView("list"), map);
-	}
+    @RequestMapping("/create")
+    public ModelAndView create(User user) throws UnsupportedEncodingException {
+        user = PasswordHelper.generatePassword(user);
+        userRepository.save(user);
+        Map<String, String> map = new HashMap<>();
+        String message = "用户 " + user.getName() + " 创建成功!";
+        map.put("message", message);
+        return new ModelAndView(new RedirectView("list"), map);
+    }
 
-	
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	@ResponseBody
-	public String edit(@PathVariable("id") String id)
-	{
-		User user = this.userRepository.findOne(Long.parseLong(id));
-		String json=JSON.toJSONString(user);
-		log.info("{}",json);
-		return json;
-	}
-	
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView edit(@Valid User user)
-	{
-		log.info("edit user!");
-		this.userRepository.save(user);
-		Map<String,String> map = new HashMap<>();
-		String message = "用户 " + user.getName() + " 编辑成功!";
-		map.put("message", message);
-		return new ModelAndView(new RedirectView("list"), map);
-	}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public void delete(@PathVariable("id") String id, Model model)
-	{
-		log.info("delete successful!");
-	}
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public String edit(@PathVariable("id") String id) {
+        User user = this.userRepository.findOne(Long.parseLong(id));
+        String json = JSON.toJSONString(user);
+        log.info("{}", json);
+        return json;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public ModelAndView edit(@Valid User user) {
+        User user2 = userRepository.findOne(user.getId());
+        user2.setName(user.getName());
+        user2.setEmployeeId(user.getEmployeeId());
+        user2.setRealName(user.getRealName());
+        user2.setEmail(user.getEmail());
+        user2.setMobile(user.getMobile());
+
+        log.info("after edit user : " + user2);
+        this.userRepository.save(user2);
+        Map<String, String> map = new HashMap<>();
+        String message = "用户 " + user.getName() + " 编辑成功!";
+        map.put("message", message);
+        return new ModelAndView(new RedirectView("list"), map);
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable("id") String id, Model model) {
+        userRepository.delete(Long.parseLong(id));
+        log.info("delete successful!");
+        Map<String, String> map = new HashMap<>();
+        String message = "删除成功!";
+        map.put("message", message);
+        return new ModelAndView(new RedirectView("/spring-init/security/user/list"), map);
+    }
 
 }
