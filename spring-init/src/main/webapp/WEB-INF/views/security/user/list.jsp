@@ -76,16 +76,15 @@
 
 		<script type="text/javascript">
 			function editUser(path) {
-				alert(path);
 				$.ajax({
 					url : path,
 					type : 'get',
 					async : true,
 					dataType: "json",
 					success: function(user){
-						alert(user.employeeId);
                         $('#name').empty();   //清空resText里面的所有内容
                         $('#employeeId').empty();
+                        $("#userId").val(user.id);
                         $('#name').val(user.name);
                         $('#employeeId').val(user.employeeId);
                         $('#realName').val(user.realName);
@@ -110,11 +109,14 @@
 							</h4>
 						</div>
 						<div class="modal-body">
+							<div class="form-group sr-only">
+								<input class="form-control" id="userId" type="text" name="id" placeholder="用户id" >
+							</div>
 							<div class="form-group">
 								<input class="form-control" id="name" type="text" name="name" placeholder="用户账户" required>
 							</div>
-							<div class="form-group">
-								<input class="form-control" type="password" name="password" placeholder="密码" required>
+							<div class="form-group sr-only">
+								<input class="form-control" type="password" name="password" placeholder="密码" >
 							</div>
 							<div class="form-group">
 								<input class="form-control" id="employeeId" type="text" name="employeeId" placeholder="员工ID" required>

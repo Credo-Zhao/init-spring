@@ -34,222 +34,201 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.zhaoqian.model.base.BaseModel;
 
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "NAME" }) })
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"NAME"})})
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL, include = "non-lazy")
-public class User extends BaseModel
-{
-	private static final long serialVersionUID = 57212890345839147L;
+public class User extends BaseModel {
+    private static final long serialVersionUID = 57212890345839147L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NaturalId
-	@NotEmpty
-	@Column(name = "NAME")
-	@Email
-	private String name;
+    @NaturalId
+    @NotEmpty
+    @Column(name = "NAME")
+    private String name;
 
-	@Basic(optional = false)
-	@Column(length = 255)
-	private String passwordHash;
+    @Basic(optional = false)
+    @Column(length = 255)
+    private String passwordHash;
 
-	@Column(length = 255)
-	private byte[] passwordSalt;
+    @Column(length = 255)
+    private byte[] passwordSalt;
 
-	private String employeeId;
+    private String employeeId;
 
-	private String realName;
+    private String realName;
 
-	@Basic(optional = true)
-	private String mobile;
+    @Email
+    private String email;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastLogin;
+    @Basic(optional = true)
+    private String mobile;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date expirationDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastLogin;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_roles")
-	@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-	private Set<Role> roles = new HashSet<Role>();
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expirationDate;
 
-	@Version
-	@Column(name = "OPT_LOCK")
-	private int versionNum = 0;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles")
+    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+    private Set<Role> roles = new HashSet<Role>();
 
-	@Transient
-	private String password;
+    @Version
+    @Column(name = "OPT_LOCK")
+    private int versionNum = 0;
 
-	@Transient
-	private String storedPassword;
+    @Transient
+    private String password;
 
-	@Transient
-	public boolean isPasswordExpired()
-	{
-		if (expirationDate == null)
-			return true;
-		return (new Date()).after(expirationDate);
-	}
+    @Transient
+    private String storedPassword;
 
-	@Transient
-	public String getViewRoles()
-	{
-		StringBuilder sb = new StringBuilder();
+    @Transient
+    public boolean isPasswordExpired() {
+        if (expirationDate == null)
+            return true;
+        return (new Date()).after(expirationDate);
+    }
 
-		for (Iterator<Role> it = getRoles().iterator(); it.hasNext();)
-		{
-			sb.append(it.next().getName());
-			if (it.hasNext())
-				sb.append(", ");
-		}
+    @Transient
+    public String getViewRoles() {
+        StringBuilder sb = new StringBuilder();
 
-		return sb.toString();
-	}
+        for (Iterator<Role> it = getRoles().iterator(); it.hasNext();) {
+            sb.append(it.next().getName());
+            if (it.hasNext())
+                sb.append(", ");
+        }
 
-	@PostLoad
-	public void postLoad()
-	{
-		this.storedPassword = this.passwordHash;
-	}
+        return sb.toString();
+    }
 
-	@PrePersist
-	@PreUpdate
-	public void preUpdate()
-	{
-		if (this.passwordHash != null && !this.passwordHash.equals(this.storedPassword))
-			this.expirationDate = DateUtils.addDays(new Date(), 90);
-	}
+    @PostLoad
+    public void postLoad() {
+        this.storedPassword = this.passwordHash;
+    }
 
-	public Long getId()
-	{
-		return id;
-	}
+    @PrePersist
+    @PreUpdate
+    public void preUpdate() {
+        if (this.passwordHash != null && !this.passwordHash.equals(this.storedPassword))
+            this.expirationDate = DateUtils.addDays(new Date(), 90);
+    }
 
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getPasswordHash()
-	{
-		return passwordHash;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPasswordHash(String passwordHash)
-	{
-		this.passwordHash = passwordHash;
-	}
+    public String getPasswordHash() {
+        return passwordHash;
+    }
 
-	public byte[] getPasswordSalt()
-	{
-		return passwordSalt;
-	}
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
 
-	public void setPasswordSalt(byte[] passwordSalt)
-	{
-		this.passwordSalt = passwordSalt;
-	}
+    public byte[] getPasswordSalt() {
+        return passwordSalt;
+    }
 
-	public String getEmployeeId()
-	{
-		return employeeId;
-	}
+    public void setPasswordSalt(byte[] passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
 
-	public void setEmployeeId(String employeeId)
-	{
-		this.employeeId = employeeId;
-	}
+    public String getEmployeeId() {
+        return employeeId;
+    }
 
-	public String getRealName()
-	{
-		return realName;
-	}
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 
-	public void setRealName(String realName)
-	{
-		this.realName = realName;
-	}
+    public String getRealName() {
+        return realName;
+    }
 
-	public String getMobile()
-	{
-		return mobile;
-	}
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
-	public void setMobile(String mobile)
-	{
-		this.mobile = mobile;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public Date getLastLogin()
-	{
-		return lastLogin;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setLastLogin(Date lastLogin)
-	{
-		this.lastLogin = lastLogin;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public Date getExpirationDate()
-	{
-		return expirationDate;
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-	public void setExpirationDate(Date expirationDate)
-	{
-		this.expirationDate = expirationDate;
-	}
+    public Date getLastLogin() {
+        return lastLogin;
+    }
 
-	public Set<Role> getRoles()
-	{
-		return roles;
-	}
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
 
-	public void setRoles(Set<Role> roles)
-	{
-		this.roles = roles;
-	}
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
 
-	public int getVersionNum()
-	{
-		return versionNum;
-	}
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 
-	public void setVersionNum(int versionNum)
-	{
-		this.versionNum = versionNum;
-	}
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
-	public String getPassword()
-	{
-		return password;
-	}
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
-	public void setPassword(String password)
-	{
-		this.password = password;
-	}
+    public int getVersionNum() {
+        return versionNum;
+    }
 
-	public String getStoredPassword()
-	{
-		return storedPassword;
-	}
+    public void setVersionNum(int versionNum) {
+        this.versionNum = versionNum;
+    }
 
-	public void setStoredPassword(String storedPassword)
-	{
-		this.storedPassword = storedPassword;
-	}
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getStoredPassword() {
+        return storedPassword;
+    }
+
+    public void setStoredPassword(String storedPassword) {
+        this.storedPassword = storedPassword;
+    }
+
 }
