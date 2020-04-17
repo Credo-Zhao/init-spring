@@ -33,12 +33,12 @@
 		<repository>
 			<id>amateras</id>
 			<name>Project Amateras Maven2 Repository</name>
-			<url>http://amateras.sourceforge.jp/mvn/</url>
+			<url>https://amateras.sourceforge.jp/mvn/</url>
 		</repository>
 		<repository>
 			<id>spring-milestone</id>
 			<name>Spring Maven MILESTONE Repository</name>
-			<url>http://maven.springframework.org/milestone</url>
+			<url>https://maven.springframework.org/milestone</url>
 		</repository>
 	</repositories>
 
