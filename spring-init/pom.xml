@@ -23,7 +23,7 @@
 		<version-springframework>5.2.5.RELEASE</version-springframework>
 		<version-slf4j>1.6.6</version-slf4j>
 		<version-shiro>1.5.2</version-shiro>
-		<version-hibernate.validator>5.0.1.Final</version-hibernate.validator>
+		<version-hibernate.validator>5.3.5.Final</version-hibernate.validator>
 		<version-hibernate.jpa>1.0.1.Final</version-hibernate.jpa>
 		<version-hibernate>4.2.6.Final</version-hibernate>
 
