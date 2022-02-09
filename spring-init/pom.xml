@@ -25,7 +25,7 @@
 		<version-shiro>1.5.2</version-shiro>
 		<version-hibernate.validator>5.0.1.Final</version-hibernate.validator>
 		<version-hibernate.jpa>1.0.1.Final</version-hibernate.jpa>
-		<version-hibernate>4.2.6.Final</version-hibernate>
+		<version-hibernate>5.4.24.Final</version-hibernate>
 
 	</properties>
 
