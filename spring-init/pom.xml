@@ -20,7 +20,7 @@
 
 		<java-version>1.7</java-version>
 
-		<version-springframework>5.2.5.RELEASE</version-springframework>
+		<version-springframework>5.2.22.RELEASE</version-springframework>
 		<version-slf4j>1.6.6</version-slf4j>
 		<version-shiro>1.5.2</version-shiro>
 		<version-hibernate.validator>5.0.1.Final</version-hibernate.validator>
